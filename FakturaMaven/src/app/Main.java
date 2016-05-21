@@ -30,7 +30,7 @@ public class Main {
 		
 		Invoice invoice = new Invoice();
 		invoice.setCustomer(new Customer("Anders", "Andersson", "Strangata 23", "121345 Huddinge"));
-		invoice.setCompany(new Company("AppaNU AB", "+045 4333773839", "435353-5353377", "54546-34353", "Strandvägen",
+		invoice.setCompany(new Company("AppaNU ABXXX", "+045 4333773839", "435353-5353377", "54546-34353", "Strandvägen",
 				"12134", "Stockholm", "appanu@hotmail.com"));
 		Invoice.Row rows[] = { invoice.new Row("descriprion bla bla", "ROT", "10", "300"),
 				invoice.new Row("descriprion bla bla", "ROT", "13", "350"),
