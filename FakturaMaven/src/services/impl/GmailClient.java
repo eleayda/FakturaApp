@@ -2,6 +2,7 @@ package services.impl;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.List;
 import java.util.Properties;
 
 import javax.activation.DataHandler;
@@ -14,43 +15,21 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 
+import com.google.api.client.auth.oauth2.Credential;
 import com.google.api.client.util.Base64;
 import com.google.api.services.gmail.Gmail;
 import com.google.api.services.gmail.model.Message;
 
 import model.Invoice;
-import services.GmailMessageService;
+import services.GmailService;
 import view.HtmlToPdf;
 
-public class GmailMessageServiceImpl implements GmailMessageService {
-	
-	/**
-	 * Create a MimeMessage using the parameters provided.
-	 *
-	 * @param to
-	 *            Email address of the receiver.
-	 * @param from
-	 *            Email address of the sender, the mailbox account.
-	 * @param subject
-	 *            Subject of the email.
-	 * @param bodyText
-	 *            Body text of the email.
-	 * @return MimeMessage to be used to send email.
-	 * @throws MessagingException
-	 */
+public class GmailClient extends GoogleClient implements GmailService {
+
 	@Override
-	public MimeMessage createEmail(String to, String from, String subject, String bodyText) throws MessagingException {
-		Properties props = new Properties();
-		Session session = Session.getDefaultInstance(props, null);
-
-		MimeMessage email = new MimeMessage(session);
-		
-		email.setFrom(new InternetAddress(from));
-		email.addRecipient(javax.mail.Message.RecipientType.TO, new InternetAddress(to));
-		email.setSubject(subject);
-		email.setText(bodyText);
-		return email;
-
+	public Gmail getClient(List<String> scopes) throws IOException {
+		Credential credential = authorize(scopes, ".credentials/gmail.json");
+		return new Gmail.Builder(HTTP_TRANSPORT, JSON_FACTORY, credential).setApplicationName(APPLICATION_NAME).build();
 	}
 
 	/**
@@ -63,8 +42,7 @@ public class GmailMessageServiceImpl implements GmailMessageService {
 	 * @throws MessagingException
 	 */
 
-	@Override
-	public Message createMessageWithEmail(MimeMessage email) throws MessagingException, IOException {
+	private Message createMessageWithEmail(MimeMessage email) throws MessagingException, IOException {
 		ByteArrayOutputStream bytes = new ByteArrayOutputStream();
 		email.writeTo(bytes);
 		String encodedEmail = Base64.encodeBase64URLSafeString(bytes.toByteArray());
@@ -90,12 +68,12 @@ public class GmailMessageServiceImpl implements GmailMessageService {
 	 * @param filename
 	 *            Name of file to be attached.
 	 * @return MimeMessage to be used to send email.
-	 * @throws Exception 
+	 * @throws Exception
 	 */
 
 	@Override
-	public MimeMessage createEmailWithAttachment(String to, String from, String subject, String bodyText,Invoice invoice
-			) throws Exception {
+	public MimeMessage createEmailWithAttachment(String to, String from, String subject, String bodyText,
+			Invoice invoice) throws Exception {
 		Properties props = new Properties();
 		Session session = Session.getDefaultInstance(props, null);
 
@@ -115,13 +93,12 @@ public class GmailMessageServiceImpl implements GmailMessageService {
 		multipart.addBodyPart(mimeBodyPart);
 
 		mimeBodyPart = new MimeBodyPart();
-		
 
-		HtmlToPdf htmlToPdf=new HtmlToPdf(invoice);
-		 DataSource source =htmlToPdf.getSource(); 
+		HtmlToPdf htmlToPdf = new HtmlToPdf(invoice);
+		DataSource source = htmlToPdf.getSource();
 		DataHandler dh = new DataHandler(source);
-		String fileName="faktura.pdf";
-		
+		String fileName = "faktura.pdf";
+
 		mimeBodyPart.setDataHandler(dh);
 		mimeBodyPart.setFileName(fileName);
 

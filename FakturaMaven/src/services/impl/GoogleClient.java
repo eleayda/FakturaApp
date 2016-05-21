@@ -12,22 +12,19 @@ import com.google.api.client.extensions.jetty.auth.oauth2.LocalServerReceiver;
 import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow;
 import com.google.api.client.googleapis.auth.oauth2.GoogleClientSecrets;
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
+import com.google.api.client.googleapis.services.json.AbstractGoogleJsonClient;
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.client.util.store.FileDataStoreFactory;
-import com.google.api.services.drive.Drive;
-import com.google.api.services.gmail.Gmail;
-
-import services.GoogleAutorizationService;
 
 /**
  * Session Bean implementation class GoogleAutorizationServiceImpl
  */
 
-public class GoogleAutorizationServiceImpl {
+public abstract class GoogleClient {
 
-	public GoogleAutorizationServiceImpl() {
+	public GoogleClient() {
 
 	}
 
@@ -36,16 +33,15 @@ public class GoogleAutorizationServiceImpl {
 
 	/** Directory to store user credentials for this application. */
 	private static final String DATA_STORE_DIR = System.getProperty("user.home");
-			
 
 	/** Global instance of the {@link FileDataStoreFactory}. */
 	private static FileDataStoreFactory DATA_STORE_FACTORY;
 
 	/** Global instance of the JSON factory. */
-	private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
+	protected static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
 
 	/** Global instance of the HTTP transport. */
-	private static HttpTransport HTTP_TRANSPORT;
+	protected static HttpTransport HTTP_TRANSPORT;
 
 	/**
 	 * Global instance of the scopes required by this quickstart.
@@ -53,12 +49,11 @@ public class GoogleAutorizationServiceImpl {
 	 * If modifying these scopes, delete your previously saved credentials at
 	 * ~/.credentials/gmail-java-quickstart.json
 	 */
-	//private static final List<String> SCOPES = Arrays.asList(GmailScopes.MAIL_GOOGLE_COM);
 
 	static {
 		try {
 			HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
-			
+
 		} catch (Throwable t) {
 			t.printStackTrace();
 			System.exit(1);
@@ -67,16 +62,17 @@ public class GoogleAutorizationServiceImpl {
 
 	/**
 	 * Creates an authorized Credential object.
-	 * @param scopes 
+	 * 
+	 * @param scopes
 	 * 
 	 * @return an authorized Credential object.
 	 * @throws IOException
 	 */
 	public Credential authorize(List<String> scopes, String path) throws IOException {
-		File credentialsStore=new File(DATA_STORE_DIR,path);
+		File credentialsStore = new File(DATA_STORE_DIR, path);
 		DATA_STORE_FACTORY = new FileDataStoreFactory(credentialsStore);
 		// Load client secrets.
-		InputStream in = GoogleAutorizationServiceImpl.class.getResourceAsStream("client_secret.json");
+		InputStream in = GoogleClient.class.getResourceAsStream("client_secret.json");
 		GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(in));
 
 		// Build flow and trigger user authorization request.
@@ -88,24 +84,12 @@ public class GoogleAutorizationServiceImpl {
 	}
 
 	/**
-	 * Build and return an authorized Gmail client service.
+	 * Build and return an authorized Google client
 	 * 
-	 * @return an authorized Gmail client service
+	 * @return an authorized Google client
 	 * @throws IOException
 	 */
-	public Gmail getGmailService(List<String> scopes) throws IOException {
-		Credential credential = authorize(scopes, ".credentials/gmail.json");
-		return new Gmail.Builder(
-				HTTP_TRANSPORT, JSON_FACTORY, credential)
-				.setApplicationName(APPLICATION_NAME)
-				.build();
-	}
 
-	  public Drive getDriveService(List<String> scopes) throws IOException {
-	        Credential credential = authorize(scopes,".credentials/drive.json");
-	        return new Drive.Builder(
-	                HTTP_TRANSPORT, JSON_FACTORY, credential)
-	                .setApplicationName(APPLICATION_NAME)
-	                .build();
-	    }
+	public abstract AbstractGoogleJsonClient getClient(List<String> scopes) throws IOException;
+
 }
