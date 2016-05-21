@@ -1,0 +1,124 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>FakturaMaven</groupId>
+  <artifactId>FakturaMaven</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>war</packaging>
+  <build>
+    <sourceDirectory>src</sourceDirectory>
+    <plugins>
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.3</version>
+        <configuration>
+          <source>1.8</source>
+          <target>1.8</target>
+        </configuration>
+      </plugin>
+      <plugin>
+        <artifactId>maven-war-plugin</artifactId>
+        <version>2.6</version>
+        <configuration>
+          <warSourceDirectory>WebContent</warSourceDirectory>
+          <failOnMissingWebXml>false</failOnMissingWebXml>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+  <dependencies>
+  	<dependency>
+  		<groupId>com.google.api-client</groupId>
+  		<artifactId>google-api-client</artifactId>
+  		<version>1.20.0</version>
+  	</dependency>
+  	<dependency>
+  		<groupId>com.google.oauth-client</groupId>
+  		<artifactId>google-oauth-client-jetty</artifactId>
+  		<version>1.20.0</version>
+  	</dependency>
+  	<dependency>
+  		<groupId>com.google.apis</groupId>
+  		<artifactId>google-api-services-gmail</artifactId>
+  		<version>v1-rev29-1.20.0</version>
+  	</dependency>
+  	<dependency>
+      <groupId>com.google.apis</groupId>
+      <artifactId>google-api-services-drive</artifactId>
+      <version>v2-rev221-1.22.0</version>
+    </dependency>
+    
+    <dependency>
+    <groupId>com.itextpdf</groupId>
+    <artifactId>barcodes</artifactId>
+    <version>7.0.0</version>
+    <!-- barcodes depends on kernel -->
+  </dependency>
+
+  <dependency>
+    <groupId>com.itextpdf</groupId>
+    <artifactId>font-asian</artifactId>
+    <version>7.0.0</version>
+  </dependency>
+
+  <dependency>
+    <groupId>com.itextpdf</groupId>
+    <artifactId>forms</artifactId>
+    <version>7.0.0</version>
+    <!-- forms depends on kernel and layout -->
+  </dependency>
+
+  <dependency>
+      <groupId>com.itextpdf</groupId>
+      <artifactId>hyph</artifactId>
+      <version>7.0.0</version>
+  </dependency>
+
+  <dependency>
+    <groupId>com.itextpdf</groupId>
+    <artifactId>io</artifactId>
+    <version>7.0.0</version>
+  </dependency>
+
+  <dependency>
+    <groupId>com.itextpdf</groupId>
+    <artifactId>kernel</artifactId>
+    <version>7.0.0</version>
+    <!-- kernel depends on io -->
+  </dependency>
+
+  <dependency>
+    <groupId>com.itextpdf</groupId>
+    <artifactId>layout</artifactId>
+    <version>7.0.0</version>
+    <!-- layout depends on kernel -->
+  </dependency>
+
+  <dependency>
+    <groupId>com.itextpdf</groupId>
+    <artifactId>pdfa</artifactId>
+    <version>7.0.0</version>
+    <!-- pdfa depends on kernel -->
+  </dependency>
+
+  <dependency>
+    <groupId>com.itextpdf</groupId>
+    <artifactId>sign</artifactId>
+    <version>7.0.0</version>
+    <!-- sign depends on kernel, layout and forms -->
+  </dependency>
+<!-- http://mvnrepository.com/artifact/com.itextpdf.tool/xmlworker -->
+<dependency>
+    <groupId>com.itextpdf.tool</groupId>
+    <artifactId>xmlworker</artifactId>
+    <version>1.0.0</version>
+</dependency>
+
+    <dependency>
+    <groupId>com.itextpdf</groupId>
+    <artifactId>itextpdf</artifactId>
+    <version>5.5.9</version>
+	</dependency>
+    
+  	
+  </dependencies>
+</project>
