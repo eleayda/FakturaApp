@@ -11,10 +11,10 @@
 
     <% 
       String w1= request.getParameter("p1"); 
-      String lbl0=gapi.gapiGetFirstLabel();
+     
     %>
 
-    <p> The 1-st lable is <%= lbl0 %> </p>
+    <p> The 1-st lable is <%=  %> </p>
 	
 </body>
 </html>
