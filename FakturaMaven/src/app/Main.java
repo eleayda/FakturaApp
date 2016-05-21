@@ -18,7 +18,7 @@ import services.impl.GmailClient;
 public class Main {
 	private DriveClient driveClient = new DriveClient();
 	private GmailClient gmailClient = new GmailClient();
-	//private GmailService messService = new GmailMessageServiceImpl();
+	
 
 	public void sendTestMethod() throws Exception {
 		Gmail gmail = gmailClient.getClient(Arrays.asList(GmailScopes.MAIL_GOOGLE_COM));
