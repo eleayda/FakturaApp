@@ -1,7 +1,7 @@
 package model;
 
 public class Company {
-	private String companyName, fhone = "__________", vatNumber = "__________", bank = "__________",
+	private String companyName="__________", fhone = "__________", vatNumber = "__________", bank = "__________",
 			adddress = "__________", zipCode = "__________", zipName = "__________", email = "__________";
 
 	public Company(String companyName, String fhone, String vatNumber, String bank, String adddress, String zipCode,

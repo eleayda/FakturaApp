@@ -2,11 +2,11 @@ package model;
 
 public class Invoice {
 	private Company company;
-	private String date="", number="";
+	private String date="________", number="________";
 	private Customer customer;
 	private Row[] rows = new Row[4];
 
-	private String sumTotal, vat, discount30, discount50, sumToPay;
+	private String sumTotal="0", vat="0", discount30="0", discount50="0", sumToPay="0";
 
 	public Invoice() {
 

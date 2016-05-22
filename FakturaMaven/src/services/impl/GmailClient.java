@@ -1,12 +1,14 @@
 package services.impl;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Properties;
 
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
+import javax.activation.FileDataSource;
 import javax.mail.MessagingException;
 import javax.mail.Multipart;
 import javax.mail.Session;
@@ -20,9 +22,7 @@ import com.google.api.client.util.Base64;
 import com.google.api.services.gmail.Gmail;
 import com.google.api.services.gmail.model.Message;
 
-import model.Invoice;
 import services.GmailService;
-import view.HtmlToPdf;
 
 public class GmailClient extends GoogleClient implements GmailService {
 
@@ -73,7 +73,7 @@ public class GmailClient extends GoogleClient implements GmailService {
 
 	@Override
 	public MimeMessage createEmailWithAttachment(String to, String from, String subject, String bodyText,
-			Invoice invoice) throws Exception {
+			File attachment,String mimeType) throws Exception {
 		Properties props = new Properties();
 		Session session = Session.getDefaultInstance(props, null);
 
@@ -94,15 +94,13 @@ public class GmailClient extends GoogleClient implements GmailService {
 
 		mimeBodyPart = new MimeBodyPart();
 
-		HtmlToPdf htmlToPdf = new HtmlToPdf(invoice);
-		DataSource source = htmlToPdf.getSource();
+		DataSource source = new FileDataSource (attachment);
 		DataHandler dh = new DataHandler(source);
-		String fileName = "faktura.pdf";
-
+		
 		mimeBodyPart.setDataHandler(dh);
-		mimeBodyPart.setFileName(fileName);
+		mimeBodyPart.setFileName(attachment.getName());
 
-		mimeBodyPart.setHeader("Content-Type", "application/pdf" + "; name=\"" + fileName + "\"");
+		mimeBodyPart.setHeader("Content-Type", mimeType + "; name=\"" + attachment.getName() + "\"");
 		mimeBodyPart.setHeader("Content-Transfer-Encoding", "base64");
 
 		multipart.addBodyPart(mimeBodyPart);

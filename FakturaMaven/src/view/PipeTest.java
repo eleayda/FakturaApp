@@ -1,12 +1,13 @@
 package view;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.PipedInputStream;
 import java.io.PipedOutputStream;
 
 public class PipeTest {
 
-    public static void main(String[] args) throws IOException {
+    public File getFile(String str) throws IOException {
 
         final PipedOutputStream output = new PipedOutputStream();
         final PipedInputStream  input  = new PipedInputStream(output);
@@ -16,7 +17,7 @@ public class PipeTest {
             @Override
             public void run() {
                 try {
-                    output.write("Hello world, pipe!".getBytes());
+                    output.write(str.getBytes());
                 } catch (IOException e) {
                 }
             }
@@ -45,6 +46,7 @@ public class PipeTest {
 
         thread1.start();
         thread2.start();
+		return null;
 
     }
 }

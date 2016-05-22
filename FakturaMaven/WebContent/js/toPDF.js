@@ -7,9 +7,10 @@
 
     $('#cmd').on('click',function(){
         $('body').scrollTop(0);
-        createPDF();
-      //  goToNextURL();
-       // window.save();
+       createPDF();
+      
+     //  window.print();
+      // goToNextURL();
         
     });
 //create pdf

@@ -22,7 +22,7 @@ import com.google.api.client.util.store.FileDataStoreFactory;
  * Session Bean implementation class GoogleAutorizationServiceImpl
  */
 
-public abstract class GoogleClient {
+public  class GoogleClient {
 
 	public GoogleClient() {
 
@@ -83,13 +83,6 @@ public abstract class GoogleClient {
 		return credential;
 	}
 
-	/**
-	 * Build and return an authorized Google client
-	 * 
-	 * @return an authorized Google client
-	 * @throws IOException
-	 */
-
-	public abstract AbstractGoogleJsonClient getClient(List<String> scopes) throws IOException;
+	
 
 }

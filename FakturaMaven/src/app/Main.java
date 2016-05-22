@@ -1,5 +1,6 @@
 package app;
 
+import java.io.File;
 import java.util.Arrays;
 
 import javax.mail.internet.MimeMessage;
@@ -12,19 +13,24 @@ import com.google.api.services.gmail.GmailScopes;
 import model.Company;
 import model.Customer;
 import model.Invoice;
+import model.InvoicePdfTemplate;
+import services.DriveService;
+import services.GmailService;
 import services.impl.DriveClient;
 import services.impl.GmailClient;
+import services.impl.HtmlToPdfConverter;
 
 public class Main {
-	private DriveClient driveClient = new DriveClient();
-	private GmailClient gmailClient = new GmailClient();
+
+	private DriveService driveService=new DriveClient();
+	private GmailService gmailService=new GmailClient();
 	
 
 	public void sendTestMethod() throws Exception {
-		Gmail gmail = gmailClient.getClient(Arrays.asList(GmailScopes.MAIL_GOOGLE_COM));
-		Drive drive= driveClient.getClient(Arrays.asList(DriveScopes.DRIVE));
+		Gmail gmail = gmailService.getClient(Arrays.asList(GmailScopes.MAIL_GOOGLE_COM));
+		Drive drive = driveService.getClient(Arrays.asList(DriveScopes.DRIVE));
 		
-		Invoice invoice = new Invoice();
+		InvoicePdfTemplate invoice = new InvoicePdfTemplate();
 		invoice.setCustomer(new Customer("Anders", "Andersson", "Strangata 23", "121345 Huddinge"));
 		invoice.setCompany(new Company("AppaNU AB", "+045 4333773839", "435353-5353377", "54546-34353", "Strandvägen",
 				"12134", "Stockholm", "appanu@hotmail.com"));
@@ -34,21 +40,20 @@ public class Main {
 				invoice.new Row("descriprion  bla", "", "10", "300") };
 		invoice.setRows(rows);
 		
-		MimeMessage emailWithAttach = gmailClient.createEmailWithAttachment("eleayda@hotmail.com", "me", "TESTY!!!",
-				"HALILUIA", invoice);
-		gmailClient.sendMessage(gmail, "me", emailWithAttach);
-		
-		
-		  
-     
-        
-        driveClient. insertFile(drive,"Drive-fak-4.jpg","description","SVP","application/pdf","faktura.pdf");
-      
+		HtmlToPdfConverter converter=new HtmlToPdfConverter(invoice.getContent(),invoice.getFileName());
+		File file =converter.getSourceFile();
+		MimeMessage emailWithAttach = gmailService.createEmailWithAttachment("eleayda@hotmail.com", "me", "TESTY!!!",
+				"HALILUIA", file,"application/pdf");
+		gmailService.sendMessage(gmail, "me", emailWithAttach);
+
+		driveService.insertFile(drive, invoice.getFileName(), "description", "", "application/pdf",
+				 invoice.getFileName());
+
 	}
 
 	public static void main(String[] args) throws Exception {
 		Main main = new Main();
-	
+
 		main.sendTestMethod();
 
 	}

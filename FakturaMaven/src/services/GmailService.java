@@ -1,18 +1,21 @@
 package services;
 
+import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
 import com.google.api.services.gmail.Gmail;
 
-import model.Invoice;
-
 public interface GmailService {
 
-	MimeMessage createEmailWithAttachment(String to, String from, String subject, String bodyText, Invoice invoice)
-			throws MessagingException, IOException, Exception;
+	
 
 	void sendMessage(Gmail service, String userId, MimeMessage email) throws MessagingException, IOException;
+
+	MimeMessage createEmailWithAttachment(String to, String from, String subject, String bodyText,
+			File attachment, String mimeType) throws Exception;
+	Gmail getClient(List<String> scopes) throws IOException;
 }
