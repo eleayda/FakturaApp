@@ -3,11 +3,21 @@
 <head>
     <meta charset="utf-8">
     <link rel="stylesheet" type="text/css" href="css/semantic.min.css">
+    <style>
+    body {
+        height: 700px;
+        width: 850px;
+        /* to centre page on screen*/
+        margin-left: auto;
+        margin-right: auto;
+    }
+    </style>
+    
     <title>Faktura</title>
 
 </head>
 <div class="ui divider hidden"></div>
-<body style="margin: 5% 20% 5% 20%">
+<body >
 
 
 <div class="ui divider hidden"></div>
@@ -285,22 +295,23 @@
     <table class="ui table">
         <tr>
            <td>
-                  <div class="ui button aligned center teal" id="cmd">Spara</div>
+                  <div class="ui button aligned center teal" id="cmd">Skriv ut</div>
                 
             </td>
             <td>
-               <label>Skicka till : </label>
+               <label>Skicka till: </label>
             </td>
             <td>
             <input name="customEmail"  type="text" placeholder="email@exempel.com">
             </td>
             <td>
-                 <label>Spara på Google Drive : </label> 
-                
-            </td>
-            <td>
             <input name="sendDrive" type="checkbox"/>
             </td>
+            <td>
+                 <label>och spara på Google Drive</label> 
+                
+            </td>
+            
             <td>
               <button class="ui button aligned center teal"  type="submit" >Skicka</button>
    

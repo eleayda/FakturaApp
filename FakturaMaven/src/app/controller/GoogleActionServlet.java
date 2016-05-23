@@ -87,7 +87,7 @@ public class GoogleActionServlet extends HttpServlet {
 		try {
 			file = converter.getSourceFile();
 			emailWithAttach = gmailService.createEmailWithAttachment(request.getParameter("customEmail"), "me",
-					"Faktura från"+company.getCompanyName(),
+					"Faktura från "+company.getCompanyName(),
 					"översender en faktura", file, "application/pdf");
 			gmailService.sendMessage(gmail, "me", emailWithAttach);
 			String check=request.getParameter("sendDrive");
