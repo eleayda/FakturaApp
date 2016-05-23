@@ -5,7 +5,7 @@
     var pList= $('.price');
     var dList=$('.discount')
     var sumList= $('.sum');
-    
+    var lblValueAsInputList=$('.lblValueAsInput')
     var fNameTop=$('#fNameTop');
     var sumTotalView=$('#sum-total');
     var vatView= $('#vat');
@@ -66,7 +66,7 @@
 
         //update total results
       function updateTotal(){
-      
+    	  updateHidden();
         updateDiscounts();
         updateTotalView();
 }
@@ -113,5 +113,12 @@
     //update to pay
     toPayView.html(sumTotal+sumTotal*0.25+discSum30+discSum50);
 }
+    function updateHidden(){
+        for (var i=0;i<lblValueAsInputList.length;i++) {
+            var  hiddenInput= lblValueAsInputList.eq(i);
+            var  label=hiddenInput.closest('td').find('label');
+            hiddenInput.val(label.text());
+            console.log("hidden input is "+hiddenInput.val());
+    }}}
 
-}());
+());

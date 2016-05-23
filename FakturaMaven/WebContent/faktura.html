@@ -8,16 +8,17 @@
 </head>
 <div class="ui divider hidden"></div>
 <body style="margin: 5% 20% 5% 20%">
-<div class="ui button aligned center teal"  id="cmd">Spara faktura</div>
+
 
 <div class="ui divider hidden"></div>
 <div class="ui segment" id="content" >
 
-    <header class="ui header">
-      <table name="customer-info" class="table" align="center" width="100%" >
+ <form action="./send" method="post" class="ui form">
+ 
+      <table >
             <tr   align="left">
                 <td colspan="4">
-                    <h1>  <input  type="text"  id="fNameTop" placeholder="ditt företag"></h1>
+                    <h1>  <input  type="text" name="fNameTop" id="fNameTop" placeholder="ditt företag"></h1>
 
                 </td>
                 <td colspan="4">
@@ -28,7 +29,7 @@
               <th colspan="6">
 
               </th>
-              <th>Faktura datum</th>
+              <th>Faktura datum </th>
               <th>
                   Faktura nummer
               </th>
@@ -53,7 +54,7 @@
               </td>
 
               <td>
-                  Köpare
+                  Köpare:
               </td>
                 <td>Betalningsvillkor 20 dagar</td>
           </tr>
@@ -61,7 +62,7 @@
               <td colspan="6">
               </td>
               <td>
-                  <input  type="text"  id="firstName" placeholder="namn"><br>
+                  <input  type="text"  name="firstName" id="firstName" placeholder="namn"><br>
               </td>
 
           </tr>
@@ -69,7 +70,7 @@
               <td colspan="6">
               </td>
               <td>
-                  <input  type="text"  id="lastName" placeholder="efternamn"><br>
+                  <input  type="text"  name="lastName" id="lastName" placeholder="efternamn"><br>
               </td>
 
           </tr>
@@ -77,7 +78,7 @@
               <td colspan="6">
               </td>
               <td>
-                  <input  type="text"  id="address" placeholder="adress"><br>
+                  <input  type="text"  name="address" placeholder="adress"><br>
               </td>
 
           </tr>
@@ -85,14 +86,14 @@
               <td colspan="6">
               </td>
               <td>
-                  <input  type="text"  id="postalZIP" placeholder="postnummer ort "><br>
+                  <input  type="text"  name="postalZIP" placeholder="postnummer ort "><br>
               </td>
 
           </tr>
         </table>
 
 
-    </header>
+  
 
     <div class="ui divider hidden"></div>
 
@@ -117,126 +118,144 @@
    
      <tr class="row">
         <td >
-           <input type="text" size="40%" >
+           <input type="text" name ="descriptionR1" size="40%" >
         </td>
-        <td><select class="discount">
+        <td><select name="discountR1" class="discount">
             <option></option>
             <option value="ROT">ROT</option>
             <option value="RUT">RUT</option>
         </select></td>
         <td >
-            <input type="text" class="quantity" size="10%">
+            <input type="text" name="quantityR1" class="quantity" size="10%">
         </td>
         <td >
-            <input type="text" class="price" size="10%">
+            <input type="text" name ="priceR1" class="price" size="10%">
         </td>
-        <td >
+        <td>
             <label class="sum">0</label>
+            <input class="lblValueAsInput" type="hidden"  name="sumR1" />
         </td>
     </tr>
-     <tr class="row">
+    <tr class="row">
         <td >
-           <input type="text" size="40%" >
+           <input type="text" name ="descriptionR2" size="40%" >
         </td>
-        <td><select class="discount">
+        <td><select name="discountR2" class="discount">
             <option></option>
             <option value="ROT">ROT</option>
             <option value="RUT">RUT</option>
         </select></td>
         <td >
-            <input type="text" class="quantity" size="10%">
+            <input type="text" name="quantityR2" class="quantity" size="10%">
         </td>
         <td >
-            <input type="text" class="price" size="10%">
+            <input type="text" name ="priceR2" class="price" size="10%">
         </td>
-        <td >
+        <td>
             <label class="sum">0</label>
+            <input class="lblValueAsInput" type="hidden"  name="sumR2" />
         </td>
     </tr>
-     <tr class="row">
+    <tr class="row">
         <td >
-           <input type="text" size="40%" >
+           <input type="text" name ="descriptionR3" size="40%" >
         </td>
-        <td><select class="discount">
+        <td><select name="discountR3" class="discount">
             <option></option>
             <option value="ROT">ROT</option>
             <option value="RUT">RUT</option>
         </select></td>
         <td >
-            <input type="text" class="quantity" size="10%">
+            <input type="text" name="quantityR3" class="quantity" size="10%">
         </td>
         <td >
-            <input type="text" class="price" size="10%">
+            <input type="text" name ="priceR3" class="price" size="10%">
         </td>
-        <td >
+        <td>
             <label class="sum">0</label>
+            <input class="lblValueAsInput" type="hidden"  name="sumR3" />
         </td>
     </tr>
-     <tr class="row">
+    <tr class="row">
         <td >
-           <input type="text" size="40%" >
+           <input type="text" name ="descriptionR4" size="40%" >
         </td>
-        <td><select class="discount">
+        <td><select name="discountR4" class="discount">
             <option></option>
             <option value="ROT">ROT</option>
             <option value="RUT">RUT</option>
         </select></td>
         <td >
-            <input type="text" class="quantity" size="10%">
+            <input type="text" name="quantityR4" class="quantity" size="10%">
         </td>
         <td >
-            <input type="text" class="price" size="10%">
+            <input type="text" name ="priceR4" class="price" size="10%">
         </td>
-        <td >
+        <td>
             <label class="sum">0</label>
+            <input class="lblValueAsInput" type="hidden"  name="sumR4" />
         </td>
     </tr>
-    
 
 
 
     <tr align="right">
         <td colspan="3"></td>
         <td>summa:</td>
-        <td><label id="sum-total">0</label></td>
+        <td><label id="sum-total">0</label>
+         <input class="lblValueAsInput" type="hidden"  name="sumTot" />
+         </td>
+         
     </tr>
     <tr align="right">
         <td colspan="3"></td>
         <td>moms 25%:</td>
-        <td><label id="vat">0</label></td>
+        <td><label id="vat">0</label>
+        <input class="lblValueAsInput" type="hidden"  name="VAT" />
+        </td>
     </tr>
     <tr align="right">
         <td colspan="3"></td>
         <td>ROT 30%:</td>
-        <td><label id="discount30">0</label></td>
+        <td><label id="discount30">0</label>
+        <input class="lblValueAsInput" type="hidden"  name="discount30" />
+        </td>
     </tr>
     <tr align="right">
         <td colspan="3"></td>
         <td>RUT 50%:</td>
-        <td><label id="discount50">0</label></td>
+        <td><label id="discount50">0</label>
+         <input class="lblValueAsInput" type="hidden"  name="discount50" />
+        </td>
     </tr>
     <tr align="right">
         <td colspan="3"></td>
         <td><h3>Att betala:</h3></td>
-        <td><h3><label id="to-pay">0</label></h3></td>
+        <td><h3><label id="to-pay">0</label></h3>
+         <input class="lblValueAsInput" type="hidden"  name="topay" />
+        </td>
     </tr>
 
 </table>
-    <div class="ui divider hidden"></div>
+    
     <table class="ui table">
         <tr>
             <td>
                 <label id="fNameBottom"></label>
+                
             </td>
             <td>
-                <label>telefon :</label><input type="text" style="width: 100%">
+                <label>telefon :</label><input type="text" name="phone" style="width: 100%">
+                
             </td>
             <td>
-                <label>org nummer :</label><input type="text" style="width: 100%">
+                <label>org nummer :</label><input type="text" name="vatNumber" style="width: 100%">
+                 
             </td>
 
             <td>
-                <label>Bank Giro :</label><input type="text" style="width: 100%">
+                <label>Bank Giro :</label><input type="text"  name="bank" style="width: 100%">
+                
             </td>
 
         </tr>
@@ -244,19 +263,56 @@
         <tr>
 
             <td>
-                <label>Adress :</label> <input type="text" style="width: 100%">
+                <label>Adress :</label> <input type="text" name="companyAddress" style="width: 100%">
+                 
             </td>
             <td>
-                <label> Post Nummer :</label> <input type="text" style="width: 100%">
+                <label> Post Nummer :</label> <input type="text" name="companyZipCode" style="width: 100%">
+                 
             </td>
             <td>
-                <label> Ort :</label><input type="text" style="width: 100%">
+                <label> Ort :</label><input type="text"  name="companySity" style="width: 100%">
+                
             </td>
             <td>
-                <label>Mail :</label><input type="text" style="width: 100%">
+                <label>Mail :</label><input name="companyEmail"  type="text" style="width: 100%">
+                
             </td>
         </tr>
     </table>
+   
+    
+    <table class="ui table">
+        <tr>
+           <td>
+                  <div class="ui button aligned center teal" id="cmd">Spara</div>
+                
+            </td>
+            <td>
+               <label>Skicka till : </label>
+            </td>
+            <td>
+            <input name="customEmail"  type="text" placeholder="email@exempel.com">
+            </td>
+            <td>
+                 <label>Spara på Google Drive : </label> 
+                
+            </td>
+            <td>
+            <input name="sendDrive" type="checkbox"/>
+            </td>
+            <td>
+              <button class="ui button aligned center teal"  type="submit" >Skicka</button>
+   
+             </td>    
+         
+
+        </tr>
+    </table>
+  
+     
+   </form>  
+ 
     <div class="ui divider hidden"></div>
 </div>
 <div class="ui divider hidden"></div>

@@ -2,11 +2,11 @@ package model;
 
 public class Invoice {
 	private Company company;
-	private String date="________", number="________";
+	private String date = "________", number = "________";
 	private Customer customer;
 	private Row[] rows = new Row[4];
 
-	private String sumTotal="0", vat="0", discount30="0", discount50="0", sumToPay="0";
+	private String sumTotal = "0", vat = "0", discount30 = "0", discount50 = "0", sumToPay = "0";
 
 	public Invoice() {
 
@@ -114,13 +114,18 @@ public class Invoice {
 	}
 
 	public class Row {
-		private String descriprion="", discount="",quantity="", price="", sum="";
+		private String descriprion = "", discount = "", quantity = "", price = "", sum = "";
 
-		public Row(String descriprion, String quantity, String price, String sum) {
+		public Row(String descriprion, String discount, String quantity, String price, String sum) {
 			this.descriprion = descriprion;
+			this.discount = discount;
 			this.quantity = quantity;
 			this.price = price;
 			this.sum = sum;
+		}
+
+		public Row() {
+			
 		}
 
 		public String getDescriprion() {
@@ -156,10 +161,10 @@ public class Invoice {
 		}
 
 		public String getDiscount() {
-			
+
 			return discount;
 		}
-		
+
 	}
 
 }

@@ -111,7 +111,7 @@
 <dependency>
     <groupId>com.itextpdf.tool</groupId>
     <artifactId>xmlworker</artifactId>
-    <version>1.0.0</version>
+    <version>5.4.1</version>
 </dependency>
 
     <dependency>

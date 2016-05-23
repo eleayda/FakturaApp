@@ -18,7 +18,7 @@ import services.DriveService;
 import services.GmailService;
 import services.impl.DriveClient;
 import services.impl.GmailClient;
-import services.impl.HtmlToPdfConverter;
+import util.HtmlToPdfConverter;
 
 public class Main {
 
@@ -26,22 +26,23 @@ public class Main {
 	private GmailService gmailService=new GmailClient();
 	
 
-	public void sendTestMethod() throws Exception {
+	public void sendTestMethod(String fname) throws Exception {
 		Gmail gmail = gmailService.getClient(Arrays.asList(GmailScopes.MAIL_GOOGLE_COM));
 		Drive drive = driveService.getClient(Arrays.asList(DriveScopes.DRIVE));
 		
 		InvoicePdfTemplate invoice = new InvoicePdfTemplate();
 		invoice.setCustomer(new Customer("Anders", "Andersson", "Strangata 23", "121345 Huddinge"));
-		invoice.setCompany(new Company("AppaNU AB", "+045 4333773839", "435353-5353377", "54546-34353", "Strandv‰gen",
+		invoice.setCompany(new Company(fname, "+045 4333773839", "435353-5353377", "54546-34353", "Strandv√§gen",
 				"12134", "Stockholm", "appanu@hotmail.com"));
-		Invoice.Row rows[] = { invoice.new Row("descriprion bla bla", "ROT", "10", "300"),
-				invoice.new Row("descriprion bla bla", "ROT", "13", "350"),
-				invoice.new Row("descriprion bla bla bla bla", "RUT", "1", "400"),
-				invoice.new Row("descriprion  bla", "", "10", "300") };
+		Invoice.Row rows[] = { invoice.new Row("descriprion bla bla", "ROT", "10", "300","3000"),
+				invoice.new Row("descriprion bla bla", "ROT", "13", "350","3500"),
+				invoice.new Row("descriprion bla bla bla bla", "RUT", "1", "400","4000"),
+				invoice.new Row("descriprion  bla", "", "10", "300","49888S") };
 		invoice.setRows(rows);
-		//String testContent="<h1>test content</h1>";
+	
+
 		HtmlToPdfConverter converter=new HtmlToPdfConverter(invoice.getContent(),invoice.getFileName());
-		File file =converter.getSourceFile2();
+		File file =converter.getSourceFile();
 		MimeMessage emailWithAttach = gmailService.createEmailWithAttachment("eleayda@hotmail.com", "me", "TESTY!!!",
 				"HALILUIA", file,"application/pdf");
 		gmailService.sendMessage(gmail, "me", emailWithAttach);
@@ -54,7 +55,7 @@ public class Main {
 	public static void main(String[] args) throws Exception {
 		Main main = new Main();
 
-		main.sendTestMethod();
+		main.sendTestMethod("AppaNu AB");
 
 	}
 

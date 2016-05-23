@@ -12,6 +12,14 @@ public Customer(String firstName, String lastName,String street, String sity) {
 	this.sity = sity;
 }
 
+public Customer() {
+	
+}
+
+public void setLastName(String lastName) {
+	this.lastName = lastName;
+}
+
 public String getFirstName() {
 	return firstName;
 }
