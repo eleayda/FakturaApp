@@ -9,7 +9,7 @@ import javax.mail.internet.MimeMessage;
 
 import com.google.api.services.gmail.Gmail;
 
-public interface GmailService {
+public interface GmailService extends GoogleService{
 
 	
 

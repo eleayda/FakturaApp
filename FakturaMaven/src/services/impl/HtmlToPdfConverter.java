@@ -8,9 +8,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.StringReader;
 
-import javax.activation.DataSource;
-import javax.activation.FileDataSource;
-
 import com.itextpdf.text.Document;
 import com.itextpdf.text.PageSize;
 import com.itextpdf.text.html.simpleparser.HTMLWorker;
@@ -21,7 +18,7 @@ import com.itextpdf.tool.xml.XMLWorkerHelper;
 public class HtmlToPdfConverter {
 	
 	
-	private String content="default content";
+	private String content="<h1>default content</h1>";
 	private String fileName="defaultFileName.pdf";
 	
 	
@@ -33,27 +30,26 @@ public class HtmlToPdfConverter {
 
 
 	//TODO call this method instead of getSource. But first prepare HTML string -> validate HTML5
-	public DataSource getSourceFile2() throws Exception {
-		File f=new File(fileName);
+	public File getSourceFile2() throws Exception {
+		File file=new File(fileName);
 	
 	
-		  try {
-			    String k = this.content;
-			    OutputStream file = new FileOutputStream(f);
-			    Document document = new Document();
-			    PdfWriter writer = PdfWriter.getInstance(document, file);
-			    document.open();
-			    InputStream is = new ByteArrayInputStream(k.getBytes());
-			    XMLWorkerHelper.getInstance().parseXHtml(writer, document, is);
-			    document.close();
-			    file.close();
-			} catch (Exception e) {
-				content="content error";
-				getSourceFile2();
-			    e.printStackTrace();
-			}
+//		  try {
+//			    String k = this.content;
+//			    OutputStream os = new FileOutputStream(file);
+//			    Document document = new Document();
+//			    PdfWriter writer = PdfWriter.getInstance(document, os);
+//			    document.open();
+//			    InputStream is = new ByteArrayInputStream(k.getBytes());
+//			    XMLWorkerHelper.getInstance().parseXHtml(writer, document, is);
+//			    document.close();
+//			    os.close();
+//			} catch (Exception e) {
+//			
+//			    e.printStackTrace();
+//			}
 		
-		  return new FileDataSource (f);
+		  return file;
 	  }
 
 
@@ -78,8 +74,7 @@ public class HtmlToPdfConverter {
 		      System.out.println("Done");
 		      }
 		    catch (Exception e) {
-		    	content="content error";
-				getSourceFile();
+		   
 		      e.printStackTrace();
 		    }
 		

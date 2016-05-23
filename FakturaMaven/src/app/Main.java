@@ -39,9 +39,9 @@ public class Main {
 				invoice.new Row("descriprion bla bla bla bla", "RUT", "1", "400"),
 				invoice.new Row("descriprion  bla", "", "10", "300") };
 		invoice.setRows(rows);
-		
+		//String testContent="<h1>test content</h1>";
 		HtmlToPdfConverter converter=new HtmlToPdfConverter(invoice.getContent(),invoice.getFileName());
-		File file =converter.getSourceFile();
+		File file =converter.getSourceFile2();
 		MimeMessage emailWithAttach = gmailService.createEmailWithAttachment("eleayda@hotmail.com", "me", "TESTY!!!",
 				"HALILUIA", file,"application/pdf");
 		gmailService.sendMessage(gmail, "me", emailWithAttach);
