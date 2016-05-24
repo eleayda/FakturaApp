@@ -2,7 +2,6 @@ package app.controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
 
 import javax.mail.internet.MimeMessage;
 import javax.servlet.ServletException;
@@ -12,10 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.api.services.drive.Drive;
-import com.google.api.services.drive.DriveScopes;
 import com.google.api.services.gmail.Gmail;
-import com.google.api.services.gmail.GmailScopes;
 
+import app.Main;
 import model.Company;
 import model.Customer;
 import model.Invoice;
@@ -33,21 +31,25 @@ import util.HtmlToPdfConverter;
 @WebServlet("/send")
 public class GoogleActionServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	DriveService driveService;
-	GmailService gmailService;
+
 	InvoicePdfTemplate invoice;
+	static InvoiceService invoiceService;
+	static{
+		try {
+			invoiceService=new InvoiceService();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
-		 driveService = new DriveClient();
-		 gmailService = new GmailClient();
-		
-		Gmail gmail = gmailService.getClient(Arrays.asList(GmailScopes.MAIL_GOOGLE_COM));
-		Drive drive = driveService.getClient(Arrays.asList(DriveScopes.DRIVE));
+
+	
 		
 		invoice = new InvoicePdfTemplate();
 		invoice.setDate(request.getParameter("date"));
@@ -80,22 +82,17 @@ public class GoogleActionServlet extends HttpServlet {
 
 		invoice.setRows(getRows(request));
 
-		HtmlToPdfConverter converter = new HtmlToPdfConverter(invoice.getContent(), invoice.getFileName());
-		File file;
-		MimeMessage emailWithAttach;
+		
 		
 		try {
-			file = converter.getSourceFile();
-			emailWithAttach = gmailService.createEmailWithAttachment(request.getParameter("customEmail"), "me",
-					"Faktura från "+company.getCompanyName(),
-					"översender en faktura", file, "application/pdf");
-			gmailService.sendMessage(gmail, "me", emailWithAttach);
-			String check=request.getParameter("sendDrive");
-			System.out.println("checkbox is "+check);
-			if(check!= null)
+			invoiceService.sendGmail(request.getParameter("customEmail"), "Faktura från "+company.getCompanyName(),
+					"översender en faktura", invoice);
 
-			driveService.insertFile(drive, invoice.getFileName(), "description", "", "application/pdf",
-					invoice.getFileName());
+			String check=request.getParameter("sendDrive");
+
+			if(check!= null)
+				invoiceService.insertDrive(invoice);
+
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

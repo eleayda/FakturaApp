@@ -1,6 +1,7 @@
 package app;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.Arrays;
 
 import javax.mail.internet.MimeMessage;
@@ -41,14 +42,14 @@ public class Main {
 		invoice.setRows(rows);
 	
 
-		HtmlToPdfConverter converter=new HtmlToPdfConverter(invoice.getContent(),invoice.getFileName());
-		File file =converter.getSourceFile();
-		MimeMessage emailWithAttach = gmailService.createEmailWithAttachment("eleayda@hotmail.com", "me", "TESTY!!!",
-				"HALILUIA", file,"application/pdf");
-		gmailService.sendMessage(gmail, "me", emailWithAttach);
-
-		driveService.insertFile(drive, invoice.getFileName(), "description", "", "application/pdf",
-				 invoice.getFileName());
+//		HtmlToPdfConverter converter=new HtmlToPdfConverter(invoice.getContent(),invoice.getFileName());
+//		File file =converter.getSourceFile();
+//		MimeMessage emailWithAttach = gmailService.createEmailWithAttachment("eleayda@hotmail.com", "me", "TESTY!!!",
+//				"HALILUIA", file,"application/pdf");
+//		gmailService.sendMessage(gmail, "me", emailWithAttach);
+//
+//		driveService.insertFile(drive, invoice.getFileName(), "description", "", "application/pdf",
+//				 invoice.getFileName());
 
 	}
 
@@ -56,7 +57,18 @@ public class Main {
 		Main main = new Main();
 
 		main.sendTestMethod("AppaNu AB");
+	
 
+	}
+
+	public Drive getDriveClient() throws IOException {
+		Drive drive = driveService.getClient(Arrays.asList(DriveScopes.DRIVE));
+		return drive;
+	}
+
+	public Gmail getGmailClient() throws IOException {
+		Gmail gmail = gmailService.getClient(Arrays.asList(GmailScopes.MAIL_GOOGLE_COM));
+		return gmail;
 	}
 
 }
